@@ -7,78 +7,136 @@
 
 ## Class
 
-- Class is a user-defined data type which defines its properties and its functions. Class is the only logical representation of the data. For example, Human being is a class. The body parts of a human being are its properties, and the actions performed by the body parts are known as functions. The class does not occupy any memory space till the time an object is instantiated.
+- Class is a user-defined data type, which holds its own data members and member functions, which can be accessed and used by creating an instance of that class. A class is like a blueprint for an object. The class does not occupy any memory space till the time an object is instantiated. Data members are the data variables and member functions are the functions used to manipulate these variables and together these data members and member functions define the properties and behaviour of the objects in a Class.
 
 _C++ Syntax (for class):_
 
 ```cpp
-class student{
+class Employee {
+    int x;  // members are by default private
 public:
-    int id; // data member
-    int mobile;
-    string name;
-    int add(int x, int y){ // member functions
-        return x + y;
+    string Name; // data member
+    string Company;
+    int Age;
+    void Introduce() { // member functions
+        cout << "Name:" << Name << endl;
+        cout << "Company:" << Company << endl;
+        cout << "Age" << Age << endl;
     }
 };
 ```
 
+- There are some OOPS principle that need to be satisfied while creating a class. This principle is called as SOLID where each letter has some specification. I won't be going into this points deeper. A single line of each explanation may clear you with some points.
+
+1. SRP (The Single Responsibility Principle) - A class should have one, and only one responsibility.
+2. OCP (The Open Closed Principle) - You should be able to extend a classes behavior, without modifying it.
+3. LSP (The Liskov Substitution Principle) - Derived classes must be substitutable for their base classes. If S is a subtype of T, then objects of type T in a program may be replaced with objects of type S without altering any of the desirable properties of that program.
+4. ISP (The Interface Segregation Principle) - Make fine chopped interface instead of huge interface as client cannot be forced to implement an interface which they don't use.
+5. DIP (The Dependency Inversion Principle) - High-level modules should not depend on low-level modules. Both should depend on abstractions (e.g. interfaces). Abstractions should not depend on details. Details (concrete implementations) should depend on abstractions.
+
+![Solid Principles](https://platis.solutions/blog/2020/06/22/how-to-write-solid-cpp/)
+
 ## Object
 
 - Object is a run-time entity. It is an instance of the class. An object can represent a person, place or any other item. An object can operate on both data members and member functions.
+- These objects are provided memory when instantiated, that means memory is provided dynamically & hence called Run Time Entities. Easy way to understand this concept is - Objects don't occupy memory at the time writing the source code.
 
 _C++ Syntax (for object):_
 
 ```cpp
-student s = new student();
+Employee employee = new Employee();
 ```
 
 - Note : When an object is created using a new keyword, then space is allocated for the variable in a heap, and the starting address is stored in the stack memory. When an object is created without a new keyword, then space is not allocated in the heap memory, and the object contains the null value in the stack.
 
+## Encapsulation
+
+- Encapsulation is the process of combining data and functions into a single unit called class. In OOP, Encapsulation is defined as binding together the data and the functions that manipulate them. In Encapsulation, the data is not accessed directly; it is accessed through the functions present inside the class. In simpler words, attributes of the class are kept private and public getter and setter methods are provided to manipulate these attributes. Thus, encapsulation makes the concept of data hiding possible. (Data hiding: a language feature to restrict access to members of an object, reducing the negative effect due to dependencies. e.g. "protected", "private" feature in C++).
+
+## Abstraction
+
+- Abstraction means displaying only essential information and hiding the unnecessary details. Data abstraction refers to providing only essential information about the data to the outside world, hiding the background details or implementation.
+- Examples -
+
+1. Abstraction using Classes: We can implement Abstraction in C++ using classes. The class helps us to group data members and member functions using available access specifiers. A Class can decide which data member will be visible to the outside world and which is not.
+2. Abstraction in Header files: One more type of abstraction in C++ can be header files. For example, consider the pow() method present in math.h header file. Whenever we need to calculate the power of a number, we simply call the function pow() present in the math.h header file and pass the numbers as arguments without knowing the underlying algorithm according to which the function is actually calculating the power of numbers.
+
+## Access Specifiers IMP
+
+- The access specifiers are used to define how functions and variables can be accessed outside the class. There are three types of access specifiers:
+
+1. **Private:** Functions and variables declared as private can be accessed only within the same class, and they cannot be accessed outside the class they are declared.
+2. **Public:** Functions and variables declared under public can be accessed from anywhere.
+3. **Protected:** Functions and variables declared as protected cannot be accessed outside the class except a child class. This specifier is generally used in inheritance.
+
+<!-- ### Data binding
+
+- Data binding is a process of binding the application UI and business logic. Any change made in the business logic will reflect directly to the application UI. -->
+
+## Constructor
+
+- Constructor is a special method which is invoked automatically at the time of object creation. Generally It is used to initialize the data members of new objects. The constructor in C++ has the same name as class or structure and does not have any return type.
+
+- There can be two types of constructors in C++.
+
+1. Default constructor : A constructor which has no parameters is known as default constructor. It is invoked at the time of creating an object.
+2. Parameterized constructor : Constructor which has parameters is called a parameterized constructor. It is used to provide different values to distinct data members.
+3. Copy Constructor : A Copy constructor is an overloaded constructor used to declare and initialize an object from another object. It is of two types - default copy constructor and user defined copy constructor.
+
+_C++ Sample Code :_
+
+```cpp
+class go {
+   public:
+    int x;
+    go() {  // default constructor.
+        x = 5;
+    }
+    go(int a) {  // parameterized constructor.
+        x = a;
+    }
+    go(go &i) {  // copy constructor
+        x = i.x;
+    }
+};
+
+int main() {
+    go a1;      // Calling the default constructor.
+    go a2(20);  // Calling the parameterized constructor.
+    go a3(a2);  // Calling the copy constructor.
+    cout << a1.x << " ";
+    cout << a2.x << " ";
+    cout << a3.x << " ";
+    return 0;
+}
+// Output : 5 20 20
+```
+
 ## Inheritance
 
-- Inheritance is a process in which one object acquires all the properties and behaviors of its parent object automatically. In such a way, you can reuse, extend or modify the attributes and behaviors which are defined in other classes.
+- The capability of a class to derive properties and characteristics from another class is called Inheritance. In such a way, you can reuse, extend or modify the attributes and behaviors which are defined in other classes.
 
-- In C++, the class which inherits the members of another class is called derived class and the class whose members are inherited is called base class. The derived class is the specialized class for the base class.
+- In C++, The class that inherits properties from another class is called Sub class or Derived Class. The class whose properties are inherited by sub class is called Base Class or Super class. The derived class is the specialized class for the base class.
 
 _C++ Syntax :_
 
 ```cpp
-class derived_class :: visibility-mode base_class;
+class derived_class : visibility-mode base_class;
 ```
 
 - visibility-modes = {private, protected, public}
 
 ## Types of Inheritance :
 
-1. Single inheritance : When one class inherits another class, it is known as single level inheritance
-2. Multiple inheritance : Multiple inheritance is the process of deriving a new class that inherits the attributes from two or more classes.
-3. Hierarchical inheritance : Hierarchical inheritance is defined as the process of deriving more than one class from a base class.
-4. Multilevel inheritance : Multilevel inheritance is a process of deriving a class from another derived class.
+1. Single inheritance : In single inheritance, a class is allowed to inherit from only one class. i.e. one sub class is inherited by one base class only.
+2. Multiple inheritance : In Multiple Inheritance, a class can inherit from more than one classes. i.e one sub class is inherited from more than one base classes.
+3. Multilevel inheritance : In Multilevel inheritance, a class is derived from another derived class.
+4. Hierarchical inheritance : In Hierarchical inheritance, More than one sub class is inherited from a single base class. i.e. more than one derived class is created from a single base class.
 5. Hybrid inheritance : Hybrid inheritance is a combination of simple, multiple inheritance and hierarchical inheritance.
-
-## Encapsulation
-
-- Encapsulation is the process of combining data and functions into a single unit called class. In Encapsulation, the data is not accessed directly; it is
-  accessed through the functions present inside the class. In simpler words, attributes of the class are kept private and public getter and setter methods are provided to manipulate these attributes. Thus, encapsulation makes the
-  concept of data hiding possible.(Data hiding: a language feature to restrict access to members of an object, reducing the negative effect due to dependencies. e.g. "protected", "private" feature in C++).
-
-## Abstraction
-
-- We try to obtain an abstract view, model or structure of a real life problem,
-  and reduce its unnecessary details. With definition of properties of
-  problems, including the data which are affected and the operations which
-  are identified, the model abstracted from problems can be a standard
-  solution to this type of problems. It is an efficient way since there are
-  nebulous real-life problems that have similar properties.
-
-### Data binding
-
-- Data binding is a process of binding the application UI and business logic. Any change made in the business logic will reflect directly to the application UI.
 
 ## Polymorphism
 
-- Polymorphism is the ability to present the same interface for differing underlying forms (data types). With polymorphism, each of these classes will have different underlying data. Apoint shape needs only two coordinates (assuming it's in a two-dimensional space of course). A circle needs a center and radius. Asquare or rectangle needs two coordinates for the top left and bottom right corners and (possibly) a rotation. An irregular polygon needs a series of lines. Precisely, Poly means ‘many’ and morphism means ‘forms’.
+- Polymorphism is an object-oriented programming concept that refers to the ability of a variable, function or object to take on multiple forms. The classic example is of the Shape class and all the classes that are inherited from it, such as: Rectangle, Triangle, Circle
 
 ## Types of Polymorphism _IMP_
 
@@ -89,11 +147,11 @@ Let’s understand them one by one :
 
 ## Compile Time Polymorphism
 
-- The polymorphism which is implemented at the compile time is known as compile-time polymorphism. Example - Method Overloading.
+- The polymorphism which is implemented at the compile time is known as compile-time polymorphism. Example - Function Overloading, Operator Overloading
 
-### Method Overloading
+### Function Overloading
 
-- Method overloading is a technique which allows you to have more than one function with the same function name but with different functionality. Method overloading can be possible on the following basis:
+- Function overloading is a technique which allows you to have more than one function with the same function name but with different parameters. Function overloading can be possible on the following basis:
 
 1. The return type of the overloaded function.
 2. The type of the parameters passed to the function.
@@ -102,8 +160,6 @@ Let’s understand them one by one :
 _Example :_
 
 ```cpp
-#include<bits/stdc++.h>
-using namespace std;
 class Add {
 public:
     int add(int a,int b){
@@ -114,7 +170,7 @@ public:
     }
 };
 
-int main(){
+int main() {
     Add obj;
     int res1,res2;
     res1 = obj.add(2,3);
@@ -129,112 +185,87 @@ add() is an overloaded function with a different number of parameters. */
 
 ## Runtime Polymorphism
 
-- Runtime polymorphism is also known as dynamic polymorphism. Function overriding is an example of runtime polymorphism. Function overriding means when the child class contains the method which is already present in the parent class. Hence, the child class overrides the method of the parent class. In case of function overriding, parent and child classes both contain the same function with a different definition. The call to the function is determined at runtime is known as runtime polymorphism.
+- Runtime polymorphism is also known as dynamic polymorphism. ex - Function overriding is an example of runtime polymorphism.
+
+### Function Overriding
+
+- In object-oriented programming when we allow a subclass or child class to provide a specific implementation of a method that is already provided by one of its superclasses or parent classes is known as Function Overriding.
 
 _C++ Sample Code :_
 
 ```cpp
+// C++ program to demonstrate function overriding
 #include <bits/stdc++.h>
 using namespace std;
 
-class Base_class{
-public:
-    virtual void show(){
-        cout << "nikhilnagrale2 base" << endl;
+class Base {
+   public:
+    void print() { cout << "Base Function" << endl; }
+};
+
+class Derived : public Base {
+   public:
+    void print() {
+        cout << "Derived Function" << endl;
+
+        // call overridden function
+        // Base::print();
     }
 };
 
-class Derived_class : public Base_class{
-public:
-    void show(){
-        cout << "nikhilnagrale2 derived" << endl;
-    }
-};
+int main() {
+    Derived derived1;
+    Base base1;
+    derived1.print();
 
-int main(){
-    Base_class* b;
-    Derived_class d;
-    b = &d;
-    b->show(); // prints the content of show() declared in derived class
+    base1.print();  //  Base function using base object
+
+    derived1.Base::print();  // access print() function of the Base class
+
+    // pointer of Base type that points to derived1
+    Base* ptr = &derived1;
+    // call function of Base class using ptr
+    ptr->print();
     return 0;
 }
-// Output : nikhilnagrale2 derived
-```
-
-## Constructor
-
-- Constructor is a special method which is invoked automatically at the time of object creation. It is used to initialize the data members of new objects generally. The constructor in C++ has the same name as class or structure.
-
-- There can be two types of constructors in C++.
-
-1. Default constructor : Aconstructor which has no argument is known as default constructor. It is invoked at the time of creating an object.
-2. Parameterized constructor : Constructor which has parameters is called a parameterized constructor. It is used to provide different values to distinct objects.
-3. Copy Constructor : A Copy constructor is an overloaded constructor used to declare and initialize an object from another object. It is of two types - default copy constructor and user defined copy constructor.
-
-_C++ Sample Code :_
-
-```cpp
-#include <bits/stdc++.h>
-using namespace std;
-
-class go {
-public:
-    int x;
-    go(int a){ // parameterized constructor.
-        x=a;
-    }
-    go(go &i){ // copy constructor
-        x = i.x;
-    }
-};
-
-int main(){
-    go a1(20); // Calling the parameterized constructor.
-    go a2(a1); // Calling the copy constructor.
-    cout << a2.x << endl;
-    return 0;
-}
-// Output : 20
 ```
 
 ## Destructor
 
-- A destructor works opposite to constructor; it destructs the objects of classes. It can be defined only once in a class. Like constructors, it is invoked automatically. A destructor is defined like a constructor. It must have the same name as class, prefixed with a tilde sign (~).
+- Destructors are usually used to deallocate memory and do other cleanup for a class object and its class members when the object is destroyed. A destructor is called for a class object when that object passes out of scope or is explicitly deleted. A destructor is a member function with the same name as its class prefixed by a ~(tilde).
 
 _Example :_
 
 ```cpp
-#include<bits/stdc++.h>
-using namespace std;
-
-class A{
+class A {
 public:
 // constructor and destructor are called automatically, once the object is instantiated
-    A(){
+    A() {
         cout << "Constructor in use" << endl;
     }
 
-    ~A(){
+    ~A() {
         cout << "Destructor in use" << endl;
     }
 };
 
 int main(){
-    Aa;
-    Ab;
+    A a;
+    A b;
     return 0;
 }
 /*
-Output: Constructor in use
+Output:
+Constructor in use
 Constructor in use
 Destructor in use
 Destructor in use
 */
 ```
 
-## ‘this’ Pointer
+## "this" Pointer
 
-- this is a keyword that refers to the current instance of the class. There can be 3 main uses of ‘this’ keyword:
+- this is a keyword that refers to the current instance of the class. There can be 3 main uses of 'this' keyword:
 
 1. It can be used to pass the current object as a parameter to another method
 2. It can be used to refer to the current class instance variable.
@@ -255,8 +286,7 @@ struct node{
 
 ## Friend Function
 
-- Friend function acts as a friend of the class. It can access the private and protected members of the class. The friend function is not a member of the class, but it must be listed in the class definition. The non-member function cannot access the private data of the class.
-  Sometimes, it is necessary for the non-member function to access the data. The friend function is a non-member function and has the ability to access the private data of the class.
+- Friend function acts as a friend of the class. It can access the private and protected members of the class. The friend function is not a member of the class, but it must be listed in the class definition. The non-member function cannot access the private data of the class. Sometimes, it is necessary for the non-member function to access the data. The friend function is a non-member function and has the ability to access the private data of the class.
 
 ### Note :
 
@@ -266,44 +296,41 @@ struct node{
 _Example IMP :_
 
 ```cpp
-#include <bits/stdc++.h>
-using namespace std;
-class A{
-int a = 2;
-int b = 4;
+class A {
+    int a = 2;
+    int b = 4;
 public:
-// friend function
-friend int mul(Ak){
-return (k.a \* k.b);
-}
-
+    // friend function
+    friend int mul(A k){
+        return (k.a * k.b);
+    }
 };
-int main(){
-Aobj;
-int res = mul(obj);
-cout << res << endl;
-return 0;
+
+int main() {
+    A obj;
+    int res = mul(obj);
+    cout << res << endl;
+    return 0;
 }
 // Output : 8
 ```
 
 ## Aggregation
 
-- It is a process in which one class defines another class as any entity reference. It is another way to reuse the class. It is a form of association that represents the HAS-Arelationship.
+- It is a process in which one class defines another class as any entity reference. It is another way to reuse the class. It is a form of association that represents the HAS-A relationship.
 
 ## Virtual Function IMP
 
-- A virtual function is used to replace the
-  implementation provided by the base class. The replacement is always called whenever the object in question is actually of the derived class, even if the object is accessed by a base pointer rather than a derived pointer.
+- A virtual function is used to replace the implementation provided by the base class. The replacement is always called whenever the object in question is actually of the derived class, even if the object is accessed by a base pointer rather than a derived pointer.
 
-1. A virtual function is a member function which is present in the base class and redefined by the derived class.
+1. A virtual function is a member function which is declared within a base class and is re-defined(Overriden) by a derived class.
 2. When we use the same function name in both base and derived class, the function in base class is declared with a keyword virtual.
 3. When the function is made virtual, then C++ determines at run-time which function is to be called based on the type of the object pointed by the base class pointer. Thus, by making the base class pointer to point to different objects, we can execute different versions of the virtual functions.
 
 ### Key Points :
 
 1. Virtual functions cannot be static.
-2. Aclass may have a virtual destructor but it cannot have a virtual constructor.
+2. A class may have a virtual destructor but it cannot have a virtual constructor.
 
 _C++ Example :_
 
@@ -314,22 +341,22 @@ using namespace std;
 class base {
 public:
     // virtual function (re-defined in the derived class)
-    virtual void print(){
+    virtual void print() {
         cout << "print base class" << endl;
     }
 
-    void show(){
+    void show() {
         cout << "show base class" << endl;
     }
 };
 
 class derived : public base {
 public:
-    void print(){
+    void print() {
         cout << "print derived class" << endl;
     }
 
-    void show(){
+    void show() {
         cout << "show derived class" << endl;
     }
 };
@@ -345,14 +372,12 @@ int main() {
 }
 /*
 output :
-APNI KAKSHA
-
 print derived class // (impact of virtual function)
 show base class
 */
 ```
 
-## PureVirtual Function :
+## Pure Virtual Function :
 
 1. A pure virtual function is not used for performing any task. It only serves as a placeholder.
 2. A pure virtual function is a function declared in the base class that has no definition relative to the base class.
@@ -395,7 +420,7 @@ int main(){
 
 ## Abstract Classes
 
-- In C++ class is made abstract by declaring at least one of its functions as a pure virtual function. Apure virtual function is specified by placing "= 0" in its declaration. Its implementation must be provided by derived classes.
+- In C++ class is made abstract by declaring at least one of its functions as a pure virtual function. A pure virtual function is specified by placing "= 0" in its declaration. Its implementation must be provided by derived classes.
 
 _Example :_
 
@@ -411,7 +436,7 @@ public:
 class Rectangle : Shape{
 public:
     void draw(){
-    cout << "Rectangle" << endl;
+        cout << "Rectangle" << endl;
     }
 };
 
@@ -462,20 +487,21 @@ int main() {
 // output : 10
 ```
 
-## Access Specifiers IMP
-
-- The access specifiers are used to define how functions
-  and variables can be accessed outside the class. There are three types of access specifiers:
-
-1. **Private:** Functions and variables declared as private can be accessed only within the same class, and they cannot be accessed outside the class they are declared.
-2. **Public:** Functions and variables declared under public can be accessed from anywhere.
-3. **Protected:** Functions and variables declared as protected cannot be accessed outside the class except a child class. This specifier is generally used in inheritance.
-
 ## Key Notes
 
 - **Delete** is used to release a unit of memory, delete[] is used to release an array.
 - **Virtual inheritance** facilitates you to create only one copy of each object even if the object appears more than one in the hierarchy.
-- **Function overloading:** Function overloading is defined as we can have more than one version of the same function. The versions of a function will have different signatures meaning that they have a different set of parameters.
 - **Operator overloading:** Operator overloading is defined as the standard operator can be redefined so that it has a different meaning when applied to the instances of a class.
-- **Overloading** is static Binding, whereas Overriding is dynamic Binding. Overloading is nothing but the same method with different arguments, and it may or may not return the same value in the same class itself.
-- **Overriding** is the same method name with the same arguments and return types associated with the class and its child class.
+
+<!-- ## You can skip this section ( C )
+
+- The name malloc and calloc() are library functions that allocate memory dynamically. It means that memory is allocated during runtime(execution of the program) from the heap segment.
+- The "malloc" or "memory allocation" method in C is used to dynamically allocate a single large block of memory with the specified size. It returns a pointer of type void which can be cast into a pointer of any form. It doesn’t Iniatialize memory at execution time so that it has initializes each block with the default garbage value initially.
+- "calloc" or "contiguous allocation" method in C is used to dynamically allocate the specified number of blocks of memory of the specified type. it is very much similar to malloc() but has two different points and these are:
+
+1. It initializes each block with a default value "0".
+2. It has two parameters or arguments as compare to malloc().
+
+- "realloc" or "re-allocation" method in C is used to dynamically change the memory allocation of a previously allocated memory.
+- "free" method in C is used to dynamically de-allocate the memory. The memory allocated using functions malloc() and calloc() is not de-allocated on their own. Hence the free() method is used, whenever the dynamic memory allocation takes place. It helps to reduce wastage of memory by freeing it.
+- -->
