@@ -34,7 +34,7 @@ public:
 4. ISP (The Interface Segregation Principle) - Make fine chopped interface instead of huge interface as client cannot be forced to implement an interface which they don't use.
 5. DIP (The Dependency Inversion Principle) - High-level modules should not depend on low-level modules. Both should depend on abstractions (e.g. interfaces). Abstractions should not depend on details. Details (concrete implementations) should depend on abstractions.
 
-![Solid Principles](https://platis.solutions/blog/2020/06/22/how-to-write-solid-cpp/)
+[Solid Principles](https://platis.solutions/blog/2020/06/22/how-to-write-solid-cpp/)
 
 ## Object
 
