@@ -2,12 +2,17 @@
 
 ## Object Oriented Programming
 
-- Object-Oriented Programming is a methodology or paradigm to design a program using classes and objects.
-- It simplifies the software development and maintenance by providing some concepts defined below :
+- Object-Oriented Programming is a methodology or programming paradigm to design a program using classes and objects.
+- It deals with Real-World Entity. (Object)
+- Four Important Principles of OOP's are - Encapsulation, Abstraction, Inheritance, Polymorphism.
 
 ## Class
 
-- Class is a user-defined data type, which holds its own data members and member functions, which can be accessed and used by creating an instance of that class. A class is like a blueprint for an object. The class does not occupy any memory space till the time an object is instantiated. Data members are the data variables and member functions are the functions used to manipulate these variables and together these data members and member functions define the properties and behaviour of the objects in a Class.
+- Class is a user-defined data type which is having its own data members and member functions, which can be accessed and used by creating an instance of that class.
+- A class is like a blueprint for an object.
+- The class does not occupy any memory space till the time an object is instantiated.
+- Ex - Creating a class of human, humans are having eyes, nose and their name. These are properties and having functions such as sleep, walk, talk.
+<!-- - Data members are the data variables and member functions are the functions used to manipulate these variables and together these data members and member functions define the properties and behaviour of the objects in a Class. -->
 
 _C++ Syntax (for class):_
 
@@ -18,7 +23,7 @@ public:
     string Name; // data member
     string Company;
     int Age;
-    void Introduce() { // member functions
+    void Introduce() { // member function
         cout << "Name:" << Name << endl;
         cout << "Company:" << Company << endl;
         cout << "Age" << Age << endl;
@@ -38,7 +43,7 @@ public:
 
 ## Object
 
-- Object is a run-time entity. It is an instance of the class. An object can represent a person, place or any other item. An object can operate on both data members and member functions.
+- Object is a run-time entity having attributes and behavior. It is an instance of the class. An object can represent a person, place or any other item. An object can operate on both data members and member functions.
 - These objects are provided memory when instantiated, that means memory is provided dynamically & hence called Run Time Entities. Easy way to understand this concept is - Objects don't occupy memory at the time writing the source code.
 
 _C++ Syntax (for object):_
@@ -51,22 +56,78 @@ Employee employee = new Employee();
 
 ## Encapsulation
 
-- Encapsulation is the process of combining data and functions into a single unit called class. In OOP, Encapsulation is defined as binding together the data and the functions that manipulate them. In Encapsulation, the data is not accessed directly; it is accessed through the functions present inside the class. In simpler words, attributes of the class are kept private and public getter and setter methods are provided to manipulate these attributes. Thus, encapsulation makes the concept of data hiding possible. (Data hiding: a language feature to restrict access to members of an object, reducing the negative effect due to dependencies. e.g. "protected", "private" feature in C++).
+- Encapsulation is the process of combining data and functions into a single unit called class.
+- Encapsulation has been done with the purpose of preventing anything outside of our class to be able to directly access our data and to interact with it and to modify it.
+- In Encapsulation, the data is not accessed directly; it is accessed through the functions present inside the class.
+- In simpler words, attributes of the class are kept private and public getter and setter methods are provided to manipulate these attributes. Thus, encapsulation makes the concept of data hiding possible.
+- (Data hiding: a language feature to restrict access to members of an object, reducing the negative effect due to dependencies. e.g. "protected", "private" feature in C++).
+- Ex -
+
+```cpp
+class Student {
+    int marks;
+    public:
+    void setMarks(int mark){
+        marks = mark;
+    }
+    int getMarks(){
+        return marks;
+    }
+};
+
+int main(){
+    Student s1;
+    s1.setMarks(50);
+    cout << getMarks() << endl;
+}
+```
 
 ## Abstraction
 
 - Abstraction means displaying only essential information and hiding the unnecessary details. Data abstraction refers to providing only essential information about the data to the outside world, hiding the background details or implementation.
-- Examples -
+
+- Types
 
 1. Abstraction using Classes: We can implement Abstraction in C++ using classes. The class helps us to group data members and member functions using available access specifiers. A Class can decide which data member will be visible to the outside world and which is not.
 2. Abstraction in Header files: One more type of abstraction in C++ can be header files. For example, consider the pow() method present in math.h header file. Whenever we need to calculate the power of a number, we simply call the function pow() present in the math.h header file and pass the numbers as arguments without knowing the underlying algorithm according to which the function is actually calculating the power of numbers.
+
+- Examples -
+- Withdrawl of money from ATM Machine but did not know the internal working.
+- In Cars, we can brake, accelerate but we dont know internal working of it.
+
+- Ex -
+
+```cpp
+class abstractStudent {
+    virtual void scholarship() = 0;
+};
+
+class Student : abstractStudent{
+    public:
+    string name;
+    int id;
+
+    void scholarship() {
+        if(marks>70) cout<<"You are eligible for Scholarship" << endl;
+        else cout<<"You are not eligible for Scholarship" << endl;
+    }
+};
+
+int main(){
+    Student s;
+    s.name = 'Nikk';
+    s.marks = 80;
+    s.scholarship();
+    return 0;
+}
+```
 
 ## Access Specifiers IMP
 
 - The access specifiers are used to define how functions and variables can be accessed outside the class. There are three types of access specifiers:
 
 1. **Private:** Functions and variables declared as private can be accessed only within the same class, and they cannot be accessed outside the class they are declared.
-2. **Public:** Functions and variables declared under public can be accessed from anywhere.
+2. **Public:** Functions and variables declared under public can be accessed throughout the program.
 3. **Protected:** Functions and variables declared as protected cannot be accessed outside the class except a child class. This specifier is generally used in inheritance.
 
 <!-- ### Data binding
@@ -114,7 +175,7 @@ int main() {
 
 ## Inheritance
 
-- The capability of a class to derive properties and characteristics from another class is called Inheritance. In such a way, you can reuse, extend or modify the attributes and behaviors which are defined in other classes.
+- The capability of a class to inherit properties and characteristics from another class is called Inheritance. In such a way, you can reuse, extend or modify the attributes and behaviors which are defined in other classes.
 
 - In C++, The class that inherits properties from another class is called Sub class or Derived Class. The class whose properties are inherited by sub class is called Base Class or Super class. The derived class is the specialized class for the base class.
 
@@ -136,7 +197,11 @@ class derived_class : visibility-mode base_class;
 
 ## Polymorphism
 
-- Polymorphism is an object-oriented programming concept that refers to the ability of a variable, function or object to take on multiple forms. The classic example is of the Shape class and all the classes that are inherited from it, such as: Rectangle, Triangle, Circle
+- Polymorphism is an object-oriented programming concept that refers to the ability of a variable, function or object (Entity) to have multiple forms.
+
+- Ex1:
+- We can have an operator “+” that is the binary addition operator which behaves differently when the operands change. For Example, when both the operands are numeric, it performs addition.
+- On the other hand, when the operands are string, it acts as concatenation operator. Thus polymorphism, in a nutshell, means an entity taking up many forms or behaving differently under different conditions.
 
 ## Types of Polymorphism _IMP_
 
@@ -147,7 +212,7 @@ Let’s understand them one by one :
 
 ## Compile Time Polymorphism
 
-- The polymorphism which is implemented at the compile time is known as compile-time polymorphism. Example - Function Overloading, Operator Overloading
+- The polymorphism which is implemented at the compile time is known as compile-time polymorphism. Function is invoked at compilation time. Example - Function Overloading, Operator Overloading
 
 ### Function Overloading
 
@@ -183,9 +248,13 @@ Output : 5 9
 add() is an overloaded function with a different number of parameters. */
 ```
 
+### Operator Overloading
+
+- Specify extra tasks to operators without converting its real meaning.
+
 ## Runtime Polymorphism
 
-- Runtime polymorphism is also known as dynamic polymorphism. ex - Function overriding is an example of runtime polymorphism.
+- Runtime polymorphism is also known as dynamic polymorphism. Function is invoked at execution time. ex - Function overriding is an example of runtime polymorphism.
 
 ### Function Overriding
 
@@ -200,6 +269,9 @@ using namespace std;
 
 class Base {
    public:
+    virtual void intro(){
+        cout<<"Base class intro" << endl;
+    }
     void print() { cout << "Base Function" << endl; }
 };
 
@@ -210,6 +282,10 @@ class Derived : public Base {
 
         // call overridden function
         // Base::print();
+    }
+
+    void intro(){
+        cout<< "Derived class Intro" << endl;
     }
 };
 
@@ -226,6 +302,16 @@ int main() {
     Base* ptr = &derived1;
     // call function of Base class using ptr
     ptr->print();
+
+
+    Base *b1;
+    Derived d1;
+
+    b1 = &d1;
+
+    b1->intro();        // derived intro
+    b1->print();        // base print
+
     return 0;
 }
 ```
